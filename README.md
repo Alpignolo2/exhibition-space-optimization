@@ -1,76 +1,76 @@
-# Exhibition Space Optimization MVP
+# Ottimizzazione Spazi Espositivi MVP
 
-This application demonstrates how machine learning can be used to optimize exhibition space allocation to maximize revenue. It provides an interactive interface for exploring exhibitor demand modeling and space optimization.
+Questa applicazione dimostra come il machine learning può essere utilizzato per ottimizzare l'allocazione degli spazi espositivi al fine di massimizzare i ricavi. Fornisce un'interfaccia interattiva per esplorare la modellazione della domanda degli espositori e l'ottimizzazione degli spazi.
 
-## Features
+## Funzionalità
 
-- **Data Generation/Upload**: Use built-in sample data generation or upload your own historical data
-- **Demand Parameter Estimation**: Automated calculation of demand parameters for each exhibitor type and event
-- **Space Optimization**: ML-based optimization to maximize revenue while respecting space constraints
-- **Interactive Visualization**: Visual exploration of optimization results and historical data
-- **Parameter Tuning**: Adjust optimization parameters to explore different scenarios
+- **Generazione/Caricamento Dati**: Utilizza la generazione di dati campione integrata o carica i tuoi dati storici
+- **Stima Parametri di Domanda**: Calcolo automatico dei parametri di domanda per ogni tipo di espositore ed evento
+- **Ottimizzazione Spazi**: Ottimizzazione basata su ML per massimizzare i ricavi rispettando i vincoli di spazio
+- **Visualizzazione Interattiva**: Esplorazione visiva dei risultati di ottimizzazione e dei dati storici
+- **Regolazione dei Parametri**: Regola i parametri di ottimizzazione per esplorare diversi scenari
 
-## Getting Started
+## Per Iniziare
 
-### Prerequisites
+### Prerequisiti
 
-- Python 3.7 or higher
-- Required packages as listed in `requirements.txt`
+- Python 3.7 o superiore
+- Pacchetti richiesti come elencati in `requirements.txt`
 
-### Installation
+### Installazione
 
-1. Clone this repository
-2. Install the required packages:
+1. Clona questo repository
+2. Installa i pacchetti richiesti:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Running the Application
+### Esecuzione dell'Applicazione
 
-To run the Streamlit app:
+Per avviare l'app Streamlit:
 
 ```bash
 streamlit run app/app.py
 ```
 
-## How to Use
+## Come Utilizzare
 
-1. **Generate Data**: Use the sidebar to generate sample exhibition data or upload your own CSV file
-2. **Select an Event**: Choose an event to optimize from the dropdown menu
-3. **Configure Parameters**: Adjust optimization parameters in the sidebar
-4. **Run Optimization**: Click "Optimize Space Allocation" to calculate the optimal allocation
-5. **Explore Results**: View the results in the "Optimization Results" tab
-6. **Analyze Data**: Use the "Data Explorer" tab to examine historical data and demand parameters
+1. **Genera Dati**: Utilizza la barra laterale per generare dati espositivi di esempio o carica il tuo file CSV
+2. **Seleziona un Evento**: Scegli un evento da ottimizzare dal menu a tendina
+3. **Configura i Parametri**: Regola i parametri di ottimizzazione nella barra laterale
+4. **Esegui l'Ottimizzazione**: Fai clic su "Ottimizza Allocazione Spazi" per calcolare l'allocazione ottimale
+5. **Esplora i Risultati**: Visualizza i risultati nella scheda "Risultati Ottimizzazione"
+6. **Analizza i Dati**: Utilizza la scheda "Esploratore Dati" per esaminare i dati storici e i parametri di domanda
 
-## Understanding the Model
+## Comprensione del Modello
 
-The application uses:
+L'applicazione utilizza:
 
-1. **Demand Modeling**: Estimates how price relates to quantity and stand size for each exhibitor type
-2. **Constraint Optimization**: Finds the optimal allocation of stands that maximizes revenue while respecting constraints
-3. **Parameter Estimation**: Calculates demand parameters (α, β₁, β₂) from historical data
+1. **Modellazione della Domanda**: Stima come il prezzo è correlato alla quantità e alla dimensione dello stand per ogni tipo di espositore
+2. **Ottimizzazione con Vincoli**: Trova l'allocazione ottimale di stand che massimizza i ricavi rispettando i vincoli
+3. **Stima dei Parametri**: Calcola i parametri di domanda (α, β₁, β₂) dai dati storici
 
-The inverse demand function used is:
+La funzione di domanda inversa utilizzata è:
 
 ```
-Price = α + β₁ * Quantity + β₂ * StandSize
+Prezzo = α + β₁ * Quantità + β₂ * DimensioneStand
 ```
 
-Where:
-- α is the base price
-- β₁ is the quantity effect (how price changes with more exhibitors)
-- β₂ is the size effect (how price changes with stand size)
+Dove:
+- α è il prezzo base
+- β₁ è l'effetto quantità (come cambia il prezzo con più espositori)
+- β₂ è l'effetto dimensione (come cambia il prezzo con la dimensione dello stand)
 
-## Data Format
+## Formato dei Dati
 
-If you want to upload your own data, it should be a CSV with the following columns:
-- Event_ID: Unique identifier for the event
-- Event_Name: Name of the event
-- Year: Year the event took place
-- Location: Event location
-- Fee_CHF: The fee paid by the exhibitor (in CHF)
-- Exhibitor_Type: Type of exhibitor (e.g., Small_Business, Premium_Brand)
-- Stand_Size: Size category (Small, Medium, Large)
-- Stand_m2: Size in square meters
-- Total_Event_Space_m2: Total available space for the event 
+Se vuoi caricare i tuoi dati, dovrebbero essere in un CSV con le seguenti colonne:
+- Event_ID: Identificatore unico per l'evento
+- Event_Name: Nome dell'evento
+- Year: Anno in cui si è svolto l'evento
+- Location: Luogo dell'evento
+- Fee_CHF: La tariffa pagata dall'espositore (in CHF)
+- Exhibitor_Type: Tipo di espositore (es. Small_Business, Premium_Brand)
+- Stand_Size: Categoria di dimensione (Small, Medium, Large)
+- Stand_m2: Dimensione in metri quadrati
+- Total_Event_Space_m2: Spazio totale disponibile per l'evento 
