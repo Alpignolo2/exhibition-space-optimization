@@ -272,7 +272,7 @@ with tab1:
                 
                 with col2:
                     # Display allocation stats
-                    st.markdown("<div class='sub-header'>Stand Distribution</div>", unsafe_allow_html=True)
+                    st.markdown("<div class='sub-header'>Distribuzione Stand</div>", unsafe_allow_html=True)
                     
                     # Simplified allocation table
                     allocation_summary = allocation.groupby(['Exhibitor_Type', 'Stand_Size']).agg({
@@ -300,7 +300,7 @@ with tab1:
                     )
                 
                 # Add button to explore detailed space visualization
-                if st.button("Explore Detailed Space Visualization", type="primary", key="explore_visualization_button"):
+                if st.button("Esplora Visualizzazione Dettagliata Spazi", type="primary", key="explore_visualization_button"):
                     # Switch to the Space Visualization tab programmatically
                     st.session_state.active_tab = "Space Visualization"
                     st.rerun()
@@ -308,16 +308,16 @@ with tab1:
             else:
                 # No optimization run yet, show potential based on historical data
                 st.markdown("""
-                #### Run Optimization to See Improvement Potential
+                #### Esegui Ottimizzazione per Vedere il Potenziale di Miglioramento
                 
-                Select an event below and click "Optimize Space Allocation" to see how machine learning 
-                can help maximize revenue through optimal space allocation.
+                Seleziona un evento qui sotto e clicca su "Ottimizza Allocazione Spazi" per vedere come il machine learning
+                può aiutare a massimizzare i ricavi attraverso un'allocazione ottimale degli spazi.
                 
-                The optimization will:
-                1. Analyze historical pricing and demand patterns
-                2. Determine the ideal mix of exhibitor types and stand sizes
-                3. Maximize revenue while respecting constraints
-                4. Generate detailed visualizations of the optimized space allocation
+                L'ottimizzazione:
+                1. Analizzerà i modelli di prezzo e domanda storici
+                2. Determinerà il mix ideale di tipi di espositori e dimensioni degli stand
+                3. Massimizzerà i ricavi rispettando i vincoli
+                4. Genererà visualizzazioni dettagliate dell'allocazione ottimizzata degli spazi
                 """)
                 
                 # Show historical space utilization
@@ -336,8 +336,8 @@ with tab1:
                     x='Event_ID',
                     y='Utilization',
                     color='Event_Name',
-                    title='Current Space Utilization by Event (%)',
-                    labels={'Utilization': 'Space Utilization (%)', 'Event_ID': 'Event'},
+                    title='Utilizzo Attuale Spazi per Evento (%)',
+                    labels={'Utilization': 'Utilizzo Spazio (%)', 'Event_ID': 'Evento'},
                     height=400,
                     text_auto='.1f'
                 )
@@ -347,12 +347,12 @@ with tab1:
                 st.plotly_chart(fig, use_container_width=True)
                 
                 st.markdown("""
-                The chart above shows the current space utilization for each event. 
-                Events with lower utilization may have greater optimization potential.
+                Il grafico sopra mostra l'utilizzo attuale dello spazio per ogni evento.
+                Eventi con utilizzo inferiore potrebbero avere un maggiore potenziale di ottimizzazione.
                 """)
                 
             # Add historical data overview section
-            st.markdown("<div class='sub-header'>Historical Data Overview</div>", unsafe_allow_html=True)
+            st.markdown("<div class='sub-header'>Panoramica Dati Storici</div>", unsafe_allow_html=True)
             
             col1, col2 = st.columns(2)
             
@@ -364,7 +364,7 @@ with tab1:
                     x='Location',
                     y='Count',
                     color='Event_Name',
-                    title='Events by Location',
+                    title='Eventi per Località',
                     barmode='group'
                 )
                 st.plotly_chart(fig, use_container_width=True)
@@ -377,7 +377,7 @@ with tab1:
                     x='Exhibitor_Type',
                     y='Count',
                     color='Stand_Size',
-                    title='Exhibitors by Type and Stand Size',
+                    title='Espositori per Tipo e Dimensione Stand',
                     barmode='stack'
                 )
                 st.plotly_chart(fig, use_container_width=True)
@@ -385,16 +385,16 @@ with tab1:
         # If no results yet, show info about optimization
         elif 'events' in st.session_state:
             st.markdown("""
-            ### Ready for Optimization
+            ### Pronto per l'Ottimizzazione
             
-            Select an event from the dropdown menu above and click "Optimize Space Allocation" to see how ML can help maximize revenue.
+            Seleziona un evento dal menu a tendina e clicca su "Ottimizza Allocazione Spazi" per vedere come il ML può aiutare a massimizzare i ricavi.
             
-            The optimization will:
+            L'ottimizzazione:
             
-            - Calculate the ideal number of stands for each exhibitor type and size
-            - Determine optimal pricing based on demand parameters
-            - Ensure balanced space allocation across different exhibitor types
-            - Maximize total revenue while respecting constraints
+            - Calcolerà il numero ideale di stand per ogni tipo di espositore e dimensione
+            - Determinerà i prezzi ottimali in base ai parametri di domanda
+            - Garantirà un'allocazione equilibrata degli spazi tra i diversi tipi di espositori
+            - Massimizzerà i ricavi totali rispettando i vincoli
             """)
         # Display event selection if data is generated
         if 'data_generated' in st.session_state and 'events' in st.session_state:
@@ -488,7 +488,7 @@ with tab2:
             <div class='metric-card'>
                 <div class='metric-label'>Utilizzo Spazio</div>
                 <div class='metric-value'>{result['utilization_pct']}%</div>
-                <div class='metric-label'>{result['used_space_m2']} m² su {result['total_space_m2']} m²</div>
+                <div class='metric-label'>{result['used_space_m2']} m² di {result['total_space_m2']} m²</div>
             </div>
             """, unsafe_allow_html=True)
         
@@ -1071,7 +1071,7 @@ with tab4:
 
 # Main application logic
 if data_button:
-    with st.spinner("Processing data..."):
+    with st.spinner("Elaborazione dati in corso..."):
         try:
             if data_option == "Genera dati di esempio":
                 # Generate sample data
@@ -1083,7 +1083,7 @@ if data_button:
                 st.session_state.demand_params = improved_estimate_demand_parameters(df, quiet=True)
                 
                 # Show success message
-                st.success(f"Generated data for {n_years} years with {len(df)} exhibition entries")
+                st.success(f"Dati generati per {n_years} anni con {len(df)} voci espositive")
                 
                 # Display event selection after data is generated
                 event_ids = df['Event_ID'].unique()
@@ -1110,7 +1110,7 @@ if data_button:
                     st.session_state.demand_params = improved_estimate_demand_parameters(df, quiet=True)
                     
                     # Show success message
-                    st.success(f"Processed uploaded data with {len(df)} exhibition entries")
+                    st.success(f"Dati caricati elaborati con {len(df)} voci espositive")
                     
                     # Display event selection after data is processed
                     event_ids = df['Event_ID'].unique()
@@ -1127,7 +1127,7 @@ if data_button:
                     # Force refresh to show the new UI elements
                     st.rerun()
         except Exception as e:
-            st.error(f"Error processing data: {str(e)}")
+            st.error(f"Errore durante l'elaborazione dei dati: {str(e)}")
             # Print error details to console for debugging
             import traceback
             print(traceback.format_exc())
@@ -1205,13 +1205,13 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
         event_info = st.session_state.events[st.session_state.selected_event]
         
         # Display key metrics in cards
-        st.markdown("<div class='sub-header'>Optimization Results</div>", unsafe_allow_html=True)
+        st.markdown("<div class='sub-header'>Risultati Ottimizzazione</div>", unsafe_allow_html=True)
         
         col1, col2, col3 = st.columns(3)
         with col1:
             st.markdown(f"""
             <div class='metric-card'>
-                <div class='metric-label'>Total Revenue</div>
+                <div class='metric-label'>Ricavi Totali</div>
                 <div class='metric-value'>CHF {result['total_revenue']:,.2f}</div>
             </div>
             """, unsafe_allow_html=True)
@@ -1219,16 +1219,16 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
         with col2:
             st.markdown(f"""
             <div class='metric-card'>
-                <div class='metric-label'>Space Utilization</div>
+                <div class='metric-label'>Utilizzo Spazio</div>
                 <div class='metric-value'>{result['utilization_pct']}%</div>
-                <div class='metric-label'>{result['used_space_m2']} m² of {result['total_space_m2']} m²</div>
+                <div class='metric-label'>{result['used_space_m2']} m² di {result['total_space_m2']} m²</div>
             </div>
             """, unsafe_allow_html=True)
         
         with col3:
             st.markdown(f"""
             <div class='metric-card'>
-                <div class='metric-label'>Constraints Satisfied</div>
+                <div class='metric-label'>Vincoli Soddisfatti</div>
                 <div class='metric-value'>{str(result['constraints_satisfied'])}</div>
             </div>
             """, unsafe_allow_html=True)
@@ -1252,7 +1252,7 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
         type_stats['Avg_Price'] = (type_stats['Total_Revenue'] / type_stats['Total_Stands']).round(2)
         
         # Display charts
-        st.markdown("<div class='sub-header'>Allocation Visualization</div>", unsafe_allow_html=True)
+        st.markdown("<div class='sub-header'>Visualizzazione Allocazione</div>", unsafe_allow_html=True)
         
         col1, col2 = st.columns(2)
         
@@ -1262,7 +1262,7 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
                 type_stats.reset_index(), 
                 values='Total_Revenue', 
                 names='Exhibitor_Type',
-                title='Revenue Distribution by Exhibitor Type',
+                title='Distribuzione Ricavi per Tipo Espositore',
                 color_discrete_sequence=px.colors.qualitative.Bold
             )
             fig1.update_traces(textposition='inside', textinfo='percent+label')
@@ -1274,21 +1274,21 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
                 type_stats.reset_index(), 
                 values='Total_Space_m2', 
                 names='Exhibitor_Type',
-                title='Space Allocation by Exhibitor Type',
+                title='Allocazione Spazio per Tipo Espositore',
                 color_discrete_sequence=px.colors.qualitative.Bold
             )
             fig2.update_traces(textposition='inside', textinfo='percent+label')
             st.plotly_chart(fig2, use_container_width=True)
         
         # Detailed stand allocation chart
-        st.markdown("<div class='sub-header'>Detailed Stand Allocation</div>", unsafe_allow_html=True)
+        st.markdown("<div class='sub-header'>Allocazione Dettagliata Stand</div>", unsafe_allow_html=True)
         
         fig3 = px.bar(
             allocation,
             x='Exhibitor_Type',
             y='Num_Stands',
             color='Stand_Size',
-            title='Number of Stands by Exhibitor Type and Size',
+            title='Numero di Stand per Tipo Espositore e Dimensione',
             barmode='group',
             color_discrete_sequence=px.colors.qualitative.Bold,
             text='Num_Stands'
@@ -1302,7 +1302,7 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
             x='Exhibitor_Type',
             y='Price_CHF',
             color='Stand_Size',
-            title='Price Comparison by Exhibitor Type and Stand Size',
+            title='Confronto Prezzi per Tipo Espositore e Dimensione Stand',
             barmode='group',
             color_discrete_sequence=px.colors.qualitative.Bold,
             text='Price_CHF'
@@ -1314,33 +1314,33 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown("<div class='sub-header'>Summary by Exhibitor Type</div>", unsafe_allow_html=True)
+            st.markdown("<div class='sub-header'>Riepilogo per Tipo Espositore</div>", unsafe_allow_html=True)
             st.dataframe(
                 type_stats.reset_index().round(2),
                 hide_index=True,
                 column_config={
-                    'Exhibitor_Type': 'Exhibitor Type',
-                    'Total_Stands': st.column_config.NumberColumn('Total Stands', format='%d'),
-                    'Total_Revenue': st.column_config.NumberColumn('Total Revenue (CHF)', format='%.2f'),
-                    'Total_Space_m2': st.column_config.NumberColumn('Total Space (m²)', format='%.1f'),
-                    'Space_Pct': st.column_config.NumberColumn('Space %', format='%.1f%%'),
-                    'Avg_Price': st.column_config.NumberColumn('Avg Price (CHF)', format='%.2f')
+                    'Exhibitor_Type': 'Tipo Espositore',
+                    'Total_Stands': st.column_config.NumberColumn('Stand Totali', format='%d'),
+                    'Total_Revenue': st.column_config.NumberColumn('Ricavi Totali (CHF)', format='%.2f'),
+                    'Total_Space_m2': st.column_config.NumberColumn('Spazio Totale (m²)', format='%.1f'),
+                    'Space_Pct': st.column_config.NumberColumn('% Spazio', format='%.1f%%'),
+                    'Avg_Price': st.column_config.NumberColumn('Prezzo Medio (CHF)', format='%.2f')
                 }
             )
         
         with col2:
-            st.markdown("<div class='sub-header'>Detailed Stand Allocation</div>", unsafe_allow_html=True)
+            st.markdown("<div class='sub-header'>Allocazione Dettagliata Stand</div>", unsafe_allow_html=True)
             st.dataframe(
                 allocation.round(2),
                 hide_index=True,
                 column_config={
-                    'Exhibitor_Type': 'Exhibitor Type',
-                    'Stand_Size': 'Stand Size',
-                    'Num_Stands': st.column_config.NumberColumn('Number of Stands', format='%d'),
-                    'Price_CHF': st.column_config.NumberColumn('Price (CHF)', format='%.2f'),
-                    'Revenue': st.column_config.NumberColumn('Revenue (CHF)', format='%.2f'),
-                    'Space_m2': st.column_config.NumberColumn('Space (m²)', format='%.1f'),
-                    'Space_Pct': st.column_config.NumberColumn('Space %', format='%.1f%%')
+                    'Exhibitor_Type': 'Tipo Espositore',
+                    'Stand_Size': 'Dimensione Stand',
+                    'Num_Stands': st.column_config.NumberColumn('Numero Stand', format='%d'),
+                    'Price_CHF': st.column_config.NumberColumn('Prezzo (CHF)', format='%.2f'),
+                    'Revenue': st.column_config.NumberColumn('Ricavi (CHF)', format='%.2f'),
+                    'Space_m2': st.column_config.NumberColumn('Spazio (m²)', format='%.1f'),
+                    'Space_Pct': st.column_config.NumberColumn('% Spazio', format='%.1f%%')
                 }
             )
 
