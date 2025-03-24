@@ -262,13 +262,19 @@ with tab1:
                         values='values',
                         color='Exhibitor_Type',
                         color_discrete_sequence=px.colors.qualitative.Bold,
-                        title=f"Optimized Space Allocation for {optimized_event}",
-                        height=400
+                        title=f"Allocazione Spazi per {optimized_event} - {result['used_space_m2']} m² Utilizzati",
+                        hover_data={'values': ':.1f m²'}
                     )
                     
-                    fig.update_traces(textinfo='label+percent parent')
+                    fig.update_traces(
+                        textinfo='label+value+percent parent',
+                        hovertemplate='<b>%{label}</b><br>Spazio: %{value:.1f} m²<br>Percentuale: %{percentParent:.1%}<extra></extra>'
+                    )
                     
-                    st.plotly_chart(fig, use_container_width=True)
+                    # Make the plot taller for better visualization
+                    fig.update_layout(height=600)
+                    
+                    st.plotly_chart(fig, use_container_width=True, key="dashboard_treemap")
                 
                 with col2:
                     # Display allocation stats
@@ -533,7 +539,7 @@ with tab2:
                 color_discrete_sequence=px.colors.qualitative.Bold
             )
             fig1.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig1, use_container_width=True)
+            st.plotly_chart(fig1, use_container_width=True, key="results_revenue_pie_1")
         
         with col2:
             # Space allocation by exhibitor type
@@ -545,7 +551,7 @@ with tab2:
                 color_discrete_sequence=px.colors.qualitative.Bold
             )
             fig2.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, use_container_width=True, key="results_space_pie_1")
         
         # Detailed stand allocation chart
         st.markdown("<div class='sub-header'>Allocazione Dettagliata Stand</div>", unsafe_allow_html=True)
@@ -561,7 +567,7 @@ with tab2:
             text='Num_Stands'
         )
         fig3.update_traces(textposition='outside')
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, use_container_width=True, key="results_stand_allocation_bar_1")
         
         # Price comparison chart
         fig4 = px.bar(
@@ -575,7 +581,7 @@ with tab2:
             text='Price_CHF'
         )
         fig4.update_traces(textposition='outside')
-        st.plotly_chart(fig4, use_container_width=True)
+        st.plotly_chart(fig4, use_container_width=True, key="results_price_comparison_bar_1")
         
         # Display detailed tables
         col1, col2 = st.columns(2)
@@ -683,7 +689,7 @@ with tab3:
             # Make the plot taller for better visualization
             fig.update_layout(height=600)
             
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key="results_treemap")
             
             # Add explanation
             st.markdown("""
@@ -866,7 +872,7 @@ with tab3:
                     bgcolor='rgba(255,255,255,0.5)'
                 )
             
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key="floor_plan")
             
             # Add explanation and disclaimers
             st.markdown("""
@@ -935,7 +941,7 @@ with tab3:
                     title=f'Allocazione Spazi per Tipo Espositore (m²)',
                     color_discrete_map={'Attuale': '#636EFA', 'Ottimizzata': '#00CC96'}
                 )
-                st.plotly_chart(fig1, use_container_width=True)
+                st.plotly_chart(fig1, use_container_width=True, key="space_comparison_type")
             
             with col2:
                 # Space comparison by stand size
@@ -949,7 +955,7 @@ with tab3:
                     color_discrete_map={'Attuale': '#636EFA', 'Ottimizzata': '#00CC96'},
                     category_orders={"Stand_Size": ["Small", "Medium", "Large"]}
                 )
-                st.plotly_chart(fig2, use_container_width=True)
+                st.plotly_chart(fig2, use_container_width=True, key="space_comparison_size")
             
             # Stand count comparison
             fig3 = px.bar(
@@ -961,7 +967,7 @@ with tab3:
                 title=f'Numero di Stand per Tipo Espositore',
                 color_discrete_map={'Attuale': '#636EFA', 'Ottimizzata': '#00CC96'}
             )
-            st.plotly_chart(fig3, use_container_width=True)
+            st.plotly_chart(fig3, use_container_width=True, key="stand_count_comparison")
             
             # Detailed space utilization metrics
             st.markdown("<div class='sub-header'>Metriche Utilizzo Spazi</div>", unsafe_allow_html=True)
@@ -1266,7 +1272,7 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
                 color_discrete_sequence=px.colors.qualitative.Bold
             )
             fig1.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig1, use_container_width=True)
+            st.plotly_chart(fig1, use_container_width=True, key="results_revenue_pie_2")
         
         with col2:
             # Space allocation by exhibitor type
@@ -1278,7 +1284,7 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
                 color_discrete_sequence=px.colors.qualitative.Bold
             )
             fig2.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, use_container_width=True, key="results_space_pie_2")
         
         # Detailed stand allocation chart
         st.markdown("<div class='sub-header'>Allocazione Dettagliata Stand</div>", unsafe_allow_html=True)
@@ -1294,7 +1300,7 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
             text='Num_Stands'
         )
         fig3.update_traces(textposition='outside')
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, use_container_width=True, key="results_stand_allocation_bar_2")
         
         # Price comparison chart
         fig4 = px.bar(
@@ -1308,7 +1314,7 @@ if 'optimization_result' in st.session_state and st.session_state.optimization_r
             text='Price_CHF'
         )
         fig4.update_traces(textposition='outside')
-        st.plotly_chart(fig4, use_container_width=True)
+        st.plotly_chart(fig4, use_container_width=True, key="results_price_comparison_bar_2")
         
         # Display detailed tables
         col1, col2 = st.columns(2)
@@ -1398,7 +1404,7 @@ if 'df' in st.session_state:
                 title='Tariffa Media per Tipo Espositore ed Evento',
                 barmode='group'
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key="explorer_avg_fees_bar")
         
         with col2:
             # Stand size distribution
@@ -1411,7 +1417,7 @@ if 'df' in st.session_state:
                 title='Distribuzione Dimensioni Stand per Tipo Espositore',
                 barmode='group'
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key="explorer_stand_size_distribution")
         
         # Show demand parameters
         if 'demand_params' in st.session_state:
